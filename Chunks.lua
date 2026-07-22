@@ -1,4 +1,4 @@
--- LocalScript
+		-- LocalScript
 
 local RS = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -173,6 +173,7 @@ local function addChunkPartBlock(chunkName, partIndex, totalParts, partText)
 	containerPad.PaddingRight = UDim.new(0, 6)
 	containerPad.Parent = container
 
+	-- Header con nombre + parte + botón copiar
 	local header = Instance.new("Frame")
 	header.Size = UDim2.new(1, 0, 0, 26)
 	header.BackgroundTransparency = 1
@@ -220,6 +221,7 @@ local function addChunkPartBlock(chunkName, partIndex, totalParts, partText)
 		copyPartBtn.Text = "Copiar"
 	end)
 
+	-- Vista previa del contenido (recortada si es muy larga, solo visual)
 	local preview = Instance.new("TextLabel")
 	preview.Size = UDim2.new(1, 0, 0, 0)
 	preview.Position = UDim2.new(0, 0, 0, 28)
@@ -259,7 +261,7 @@ local function safeWaitForChild(parent, name, timeout)
 end
 
 -- ===== NAVEGACIÓN =====
--- Ruta: ReplicatedStorage > Controllers > EventController > "Phase 5: Sammy Snap" > Cutscene
+-- Ruta: ReplicatedStorage > Controllers > EventController > Events > "Phase 5: Sammy Snap" > Cutscene
 local ok, err = pcall(function()
 
 	status("Entrando a ReplicatedStorage...")
@@ -271,10 +273,14 @@ local ok, err = pcall(function()
 	if not eventController then error("Detenido: falta EventController") end
 
 	status("Entré ahora a EventController...")
-	local phase5 = safeWaitForChild(eventController, "Phase 5: Sammy Snap")
+	local events = safeWaitForChild(eventController, "Events")
+	if not events then error("Detenido: falta Events") end
+
+	status("Entrando a Events...")
+	local phase5 = safeWaitForChild(events, "Phase 5: Sammy Snap")
 	if not phase5 then error("Detenido: falta Phase 5: Sammy Snap") end
 
-	status("Entré a Phase 5: Sammy Snap...")
+	status("Entre ahorita sí a Phase 5: Sammy Snap...")
 	local cutscene = safeWaitForChild(phase5, "Cutscene")
 	if not cutscene then error("Detenido: falta Cutscene") end
 
